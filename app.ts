@@ -7,6 +7,7 @@ import { connectToDB } from './db'
 import clientsRouter from './controllers/clients'
 import swaggerUi from "swagger-ui-express"
 import swaggerDocument from './docs/generateSwaggerDoc'
+import path from 'path'
 
 
 const app = express();
@@ -17,12 +18,19 @@ const app = express();
 })();
 
 app.use(cors())
-app.use(express.static('build'))
+app.get('/', (_, res) => {
+  res.sendFile(path.resolve(__dirname, 'build', 'index.html'), { lastModified: false, etag: false })
+});
+app.use(express.static(path.resolve(__dirname, 'build')))
 app.use(express.json())
 app.use(middleware.requestLogger)
 
 app.use('/api/clients', clientsRouter)
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument))
+
+app.get('*', (_, res) => {
+  res.sendFile(path.resolve(__dirname, 'build', 'index.html'), { lastModified: false, etag: false });
+})
 
 app.use(middleware.unknownEndpoint)
 app.use(middleware.errorHandler)
