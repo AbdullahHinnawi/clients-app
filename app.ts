@@ -4,6 +4,8 @@ import config from './utils/config'
 import middleware from './utils/middleware'
 import logger from './utils/logger'
 import { connectToDB } from './db'
+import clientsRouter from './controllers/clients'
+
 
 const app = express();
 
@@ -16,6 +18,9 @@ app.use(cors())
 app.use(express.static('build'))
 app.use(express.json())
 app.use(middleware.requestLogger)
+
+app.use('/api/clients', clientsRouter)
+
 app.use(middleware.unknownEndpoint)
 app.use(middleware.errorHandler)
 
