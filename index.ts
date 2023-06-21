@@ -8,4 +8,5 @@ const server = http.createServer(app)
 server.listen(config.PORT, () => {
   logger.info(`Node environment: ${config.NODE_ENV}`)
   logger.info(`Server is running at ${config.BASE_URI}`)
+  logger.info(`API docs can be found at ${config.BASE_URI}/api-docs`)
 })

@@ -1,0 +1,65 @@
+components:
+  schemas:
+    Client:
+      type: object
+      properties:
+        _id:
+          type: string
+        name:
+          type: string
+        email:
+          type: string
+        website:
+          type: string
+        businessId:
+          type: string
+        phone:
+          type: string
+        streetAddress:
+          type: object
+          properties:
+            street:
+              type: string
+            city:
+              type: string
+            postalCode:
+              type: string
+      example:
+        _id: 64932c2be10ded9ad6725e4a
+        name: Client
+        email: client@mail.com
+        website: https://client.com
+        businessId: 123456-7
+        phone: '+358441117777'
+        streetAddress:
+          street: Hanasaarenranta 1
+          city: espoo
+          postaCode: 02100
+    ErrorRes:
+      type: object
+      properties:
+        error:
+          type: string
+      example:
+        error: Error message
+    GetClientsRes:
+      type: array
+      items:
+        type: object
+        $ref: '#/components/schemas/Client'
+    CreateClientReqBody:
+      type: object
+      properties:
+        name:
+          type: string
+        email:
+          type: string
+        website:
+          type: string
+        businessId:
+          type: string
+      example:
+        name: Client
+        email: client@mail.com
+        website: 'https://client.com'
+        businessId: 123456-7
